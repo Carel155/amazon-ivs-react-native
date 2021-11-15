@@ -251,6 +251,10 @@ class AmazonIvsView(private val context: ThemedReactContext) : FrameLayout(conte
     player?.seekTo(TimeUnit.SECONDS.toMillis(position))
   }
 
+  fun resizePlayer() {
+    post(mLayoutRunnable)
+  }
+
   fun onPlayerStateChange(state: Player.State) {
     val reactContext = context as ReactContext
 

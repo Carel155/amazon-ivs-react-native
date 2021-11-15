@@ -11,7 +11,8 @@ class AmazonIvsViewManager : SimpleViewManager<AmazonIvsView>() {
   private enum class Commands {
     PLAY,
     PAUSE,
-    SEEK_TO
+    SEEK_TO,
+    RESIZE_PLAYER
   }
 
   override fun getName() = "AmazonIvs"
@@ -31,7 +32,9 @@ class AmazonIvsViewManager : SimpleViewManager<AmazonIvsView>() {
       "pause",
       Commands.PAUSE.ordinal,
       "seekTo",
-      Commands.SEEK_TO.ordinal
+      Commands.SEEK_TO.ordinal,
+      "resizePlayer",
+      Commands.RESIZE_PLAYER.ordinal
     )
   }
 
@@ -44,6 +47,7 @@ class AmazonIvsViewManager : SimpleViewManager<AmazonIvsView>() {
           view.seekTo(position.toLong())
         }
       }
+      Commands.RESIZE_PLAYER.ordinal -> view.resizePlayer()
       else -> {
       }
     }

@@ -12,6 +12,7 @@ import {
   findNodeHandle,
   View,
   NativeSyntheticEvent,
+  Platform,
 } from 'react-native';
 import type { LogLevel, PlayerState } from './enums';
 import type {
@@ -176,6 +177,19 @@ const IVSPlayerContainer = React.forwardRef<IVSPlayerRef, Props>(
       );
     }, []);
 
+    const resizePlayer = useCallback(() => {
+      if (Platform.OS === 'android') {
+        UIManager.dispatchViewManagerCommand(
+          findNodeHandle(mediaPlayerRef.current),
+
+          UIManager.getViewManagerConfig(VIEW_NAME).Commands.resizePlayer,
+          []
+        );
+      }
+    }, []);
+
+    console.log('asd');
+
     useEffect(() => {
       paused ? pause() : play();
     }, [pause, paused, play]);
@@ -186,8 +200,9 @@ const IVSPlayerContainer = React.forwardRef<IVSPlayerRef, Props>(
         play,
         pause,
         seekTo,
+        resizePlayer,
       }),
-      [play, pause, seekTo]
+      [play, pause, seekTo, resizePlayer]
     );
 
     const onSeekHandler = (
